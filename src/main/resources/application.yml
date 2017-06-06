@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    active: prod
+  application:
+    name: event-store
+  cloud:
+    config:
+      enabled: false
+      discovery:
+        enabled: false
