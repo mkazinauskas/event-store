@@ -25,7 +25,7 @@ class AddEventControllerSpec extends ApiSpec {
             response.statusCode == HttpStatus.CREATED
             response.body == null
             response.headers.getLocation().path.endsWith("events/${request.uniqueId}")
-
+        and:
             String uniqueId = response.headers.getLocation().path.split('/').last()
 
             Event event = events.findByUniqueId(uniqueId).get()

@@ -3,6 +3,7 @@ package com.modzo.eventstore.api.utils
 import org.springframework.stereotype.Component
 
 import static org.apache.commons.lang.RandomStringUtils.randomAlphanumeric
+import static org.apache.commons.lang.RandomStringUtils.randomAscii
 
 @Component
 class DummyEvent {
@@ -13,11 +14,11 @@ class DummyEvent {
         this.testContext = testContext
     }
 
-    Map<String, String> sampleRequest() {
+    static Map<String, String> sampleRequest() {
         [
                 uniqueId: randomAlphanumeric(100),
-                topic   : 'topic',
-                value   : 'value'
+                topic   : randomAlphanumeric(100),
+                value   : randomAscii(10000)
         ]
     }
 
