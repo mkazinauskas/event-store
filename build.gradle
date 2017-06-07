@@ -21,7 +21,6 @@ repositories {
     mavenCentral()
 }
 
-
 ext {
     springCloudVersion = 'Dalston.SR1'
     spockVersion = '1.1-groovy-2.4'
@@ -39,7 +38,6 @@ dependencies {
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile("org.spockframework:spock-core:${spockVersion}")
     testCompile("org.spockframework:spock-spring:${spockVersion}")
-    testCompile('com.h2database:h2')
 }
 
 dependencyManagement {
