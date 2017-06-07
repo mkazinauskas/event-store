@@ -27,4 +27,11 @@ class RequestTemplate {
 
         return restTemplate.postForEntity(url, entity, String)
     }
+
+    ResponseEntity<String> get(String url) {
+        HttpHeaders headers = new HttpHeaders()
+        headers.setContentType(MediaType.APPLICATION_JSON)
+
+        return restTemplate.getForEntity(url, String)
+    }
 }

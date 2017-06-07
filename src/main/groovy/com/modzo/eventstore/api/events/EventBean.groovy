@@ -16,7 +16,7 @@ class EventBean {
     }
 
     EventBean(Event event) {
-        this.uniqueId = event.id
+        this.uniqueId = event.uniqueId
         this.created = event.created
         this.topic = event.topic
         this.value = event.value

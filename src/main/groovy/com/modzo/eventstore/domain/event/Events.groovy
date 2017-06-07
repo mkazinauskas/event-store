@@ -11,6 +11,6 @@ interface Events extends PagingAndSortingRepository<Event, String> {
     Optional<Event> findByUniqueId(String uniqueId)
 
     @Query('SELECT e FROM Event e where e.id > :id')
-    Page<Event> findNextEntry(@Param('id') String id, Pageable pageable)
+    Page<Event> findNextEntry(@Param('id') Long id, Pageable pageable)
 
 }
