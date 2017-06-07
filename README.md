@@ -1,5 +1,8 @@
-# event-store
-Simple event store
+# Event store
+
+[![Build Status](https://travis-ci.org/modestukasai/event-store.svg?branch=master)](https://travis-ci.org/modestukasai/event-store)
+
+## Usage
 
 * Add event POST `/events` 
 
