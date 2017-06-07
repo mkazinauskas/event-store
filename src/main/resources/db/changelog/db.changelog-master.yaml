@@ -15,27 +15,20 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: unique_id
-                  type: varchar(32)
+                  type: varchar(100)
                   constraints:
                     nullable: false
                     unique: true
               - column:
-                  name: creation_date
+                  name: created
                   type: timestamp
                   constraints:
                     nullable: false
               - column:
-                  name: source_type
-                  type: varchar(50)
+                  name: topic
+                  type: varchar(100)
                   constraints:
                     nullable: false
-                    updateable: false
-              - column:
-                  name: checksum
-                  type: varchar(32)
-                  constraints:
-                    nullable: false
-                    unique: true
               - column:
                   name: value
                   type: LONGVARCHAR

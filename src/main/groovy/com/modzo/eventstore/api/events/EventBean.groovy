@@ -3,20 +3,20 @@ package com.modzo.eventstore.api.events
 import com.modzo.eventstore.domain.event.Event
 
 class EventBean {
-    final String id
+    final String uniqueId
     final Date created
     final String topic
     final String value
 
-    EventBean(String id, Date created, String topic, String value) {
-        this.id = id
+    EventBean(String uniqueId, Date created, String topic, String value) {
+        this.uniqueId = uniqueId
         this.created = created
         this.topic = topic
         this.value = value
     }
 
     EventBean(Event event) {
-        this.id = event.id
+        this.uniqueId = event.id
         this.created = event.created
         this.topic = event.topic
         this.value = event.value

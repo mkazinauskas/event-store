@@ -26,7 +26,7 @@ public class EventsController {
 
     @RequestMapping(method = RequestMethod.GET, value = "events/{id}")
     public ResponseEntity<EventBean> getEvents(@PathVariable("id") String uniqueId) {
-        Event event = events.findById(uniqueId).orElseThrow(
+        Event event = events.findByUniqueId(uniqueId).orElseThrow(
                 () -> new ApiException("EVENT_ID", "Event with specified does not exist", HttpStatus.NOT_FOUND)
         );
         return ResponseEntity.ok(new EventBean(event));
@@ -34,14 +34,14 @@ public class EventsController {
 
     @RequestMapping(method = RequestMethod.GET, value = "events/next")
     public ResponseEntity<EventBean> getNextEntry(@RequestParam("id") String uniqueId) {
-        Event event = events.findById(uniqueId)
+        Event event = events.findByUniqueId(uniqueId)
                 .orElseThrow(
                         () -> new ApiException("EVENT_ID", "Event with specified does not exist", HttpStatus.NOT_FOUND)
                 );
 
         Pageable first = new PageRequest(0, 1, Sort.Direction.ASC, "id");
 
-        Event nextEvent = events.findNextEntry(event.getId(), first).getContent().stream().findFirst()
+        Event nextEvent = events.findNextEntry(event.getUniqueId(), first).getContent().stream().findFirst()
                 .orElseThrow(
                         () -> new ApiException("EVENT_ID", "Next event entry does not exist", HttpStatus.NOT_FOUND)
                 );

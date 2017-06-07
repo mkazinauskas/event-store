@@ -1,24 +1,32 @@
 package com.modzo.eventstore.domain.event
 
 import groovy.transform.CompileStatic
-import org.springframework.data.annotation.Id
-import org.springframework.data.elasticsearch.annotations.Document
-import org.springframework.data.elasticsearch.annotations.Field
-import org.springframework.data.elasticsearch.annotations.FieldIndex
-import org.springframework.data.elasticsearch.annotations.FieldType
+import org.hibernate.validator.constraints.NotBlank
+
+import javax.persistence.*
 
 @CompileStatic
-@Document(indexName = 'event', type = 'event', refreshInterval = '-1')
+@Entity
+@Table(name = 'events')
 class Event {
     @Id
-    String id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = 'id', nullable = false)
+    Long id
 
-    @Field(type = FieldType.String, index = FieldIndex.analyzed)
+    @NotBlank
+    @Column(name = 'unique_id', nullable = false, unique = true, length = 100)
+    String uniqueId
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = 'created', nullable = false)
     Date created = new Date()
 
-    @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
+    @NotBlank
+    @Column(name = 'topic', nullable = false, length = 100)
     String topic
 
-    @Field(type = FieldType.String, index = FieldIndex.not_analyzed)
+    @NotBlank
+    @Column(name = 'value', nullable = false, columnDefinition = 'longtext')
     String value
 }

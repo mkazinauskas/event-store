@@ -30,11 +30,11 @@ ext {
 dependencies {
     compile('org.springframework.cloud:spring-cloud-starter-config')
     compile('org.springframework.cloud:spring-cloud-starter-eureka')
-//    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.liquibase:liquibase-core')
     compile('org.springframework.boot:spring-boot-starter-web')
-    compile('org.springframework.boot:spring-boot-starter-data-elasticsearch')
     compile('org.codehaus.groovy:groovy-all')
+    runtime('com.h2database:h2')
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile("org.spockframework:spock-core:${spockVersion}")

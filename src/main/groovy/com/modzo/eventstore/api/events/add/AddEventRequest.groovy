@@ -6,7 +6,7 @@ import org.hibernate.validator.constraints.NotBlank
 class AddEventRequest {
 
     @NotBlank
-    String id
+    String uniqueId
 
     @NotBlank
     String topic
@@ -15,12 +15,10 @@ class AddEventRequest {
     String value
 
     AddEvent toAddEvent() {
-        new AddEvent().with {
-            it.id = id
-            it.topic = topic
-            it.value = value
-
-            it
-        }
+        new AddEvent(
+                uniqueId: uniqueId,
+                topic: topic,
+                value: value
+        )
     }
 }
