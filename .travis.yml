@@ -1,0 +1,15 @@
+language: java
+
+jdk:
+ - oraclejdk8
+
+os:
+  - linux
+
+cache:
+  directories:
+  - $HOME/.gradle
+
+install: echo "skip 'gradle assemble' step"
+
+build: ./gradlew clean build --continue
