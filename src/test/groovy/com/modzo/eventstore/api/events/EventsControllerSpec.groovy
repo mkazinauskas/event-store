@@ -31,7 +31,6 @@ class EventsControllerSpec extends ApiSpec {
             checkSavedEventWithRetrieved(savedEvent, retrievedEvent)
     }
 
-
     def 'should find event by unique id'() {
         given:
             def savedEvent = dummyEvent.sampleRequest()
