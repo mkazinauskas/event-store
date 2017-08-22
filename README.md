@@ -1,5 +1,11 @@
 # Event store
 
+Note: This is not event store which is described by Greg Young in 
+[https://cqrs.wordpress.com/documents/building-event-storage/](here)
+
+This is simple implementation of persisting events to relational database. 
+It does not ensures aggregate root versioning and other cool stuff which [https://geteventstore.com/](this event store) has.
+ 
 [![Build Status](https://travis-ci.org/modestukasai/event-store.svg?branch=master)](https://travis-ci.org/modestukasai/event-store)
 
 ## Usage
@@ -10,11 +16,11 @@ Sample request
 ```
 {
    uniqueId: 'uniqueId'
-   topic   : 'topic'
-   value   : 'value'
+   type   : 'my_event_type'
+   data   : 'any Value'
 }
 ```
 
-* Retrieve events GET `/events`. Optional request params `size`, `page`
+* Retrieve first GET `/events/next`
 
-* Retrieve next event GET `/events/next?uniqueId={currentEventUniqueId}`
+* Retrieve first GET `/events/next?id={currentEventId}` 

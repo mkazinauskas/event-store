@@ -18,15 +18,11 @@ class Event {
     @Column(name = 'unique_id', nullable = false, unique = true, length = 100)
     String uniqueId
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = 'created', nullable = false)
-    Date created = new Date()
+    @NotBlank
+    @Column(name = 'type', nullable = false, length = 100)
+    String type
 
     @NotBlank
-    @Column(name = 'topic', nullable = false, length = 100)
-    String topic
-
-    @NotBlank
-    @Column(name = 'value', nullable = false, columnDefinition = 'longtext')
-    String value
+    @Column(name = 'data', nullable = false, columnDefinition = 'clob')
+    String data
 }

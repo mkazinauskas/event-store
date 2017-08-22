@@ -4,6 +4,7 @@ import com.modzo.eventstore.api.ApiSpec
 import com.modzo.eventstore.api.utils.DummyEvent
 import com.modzo.eventstore.domain.event.Event
 import com.modzo.eventstore.domain.event.Events
+import groovy.json.JsonSlurper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -30,9 +31,27 @@ class AddEventControllerSpec extends ApiSpec {
 
             Event event = events.findByUniqueId(uniqueId).get()
             event.uniqueId == request.uniqueId
-            event.created != null
-            event.topic == request.topic
-            event.value == request.value
+            event.type == request.type
+            event.data == request.data
+    }
+
+    def 'should fail to add new event'() {
+        given:
+            def request = dummyEvent.sampleRequest()
+            request.uniqueId = null
+        when:
+            ResponseEntity<String> response = testContext.createEvent(request)
+        then:
+            response.statusCode == HttpStatus.BAD_REQUEST
+            def body = new JsonSlurper().parseText(response.body)
+
+            body.errors.size() == 1
+            with(body.errors.first()) { error ->
+                error.field == 'uniqueId'
+                error.rejectedValue == null
+                error.code == 'NotBlank'
+                error.defaultMessage == 'may not be empty'
+            }
     }
 
 }

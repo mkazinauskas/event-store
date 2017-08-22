@@ -9,16 +9,16 @@ class AddEventRequest {
     String uniqueId
 
     @NotBlank
-    String topic
+    String type
 
     @NotBlank
-    String value
+    String data
 
     AddEvent toAddEvent() {
         new AddEvent(
                 uniqueId: uniqueId,
-                topic: topic,
-                value: value
+                type: type,
+                data: data
         )
     }
 }

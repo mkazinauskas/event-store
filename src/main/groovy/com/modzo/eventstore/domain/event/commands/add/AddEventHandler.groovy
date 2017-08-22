@@ -21,8 +21,8 @@ class AddEventHandler {
 
         Event event = new Event(
                 uniqueId: addEvent.uniqueId,
-                topic: addEvent.topic,
-                value: addEvent.value
+                type: addEvent.type,
+                data: addEvent.data
 
         )
         events.save(event)

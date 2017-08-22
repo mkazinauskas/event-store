@@ -1,5 +1,6 @@
 package com.modzo.eventstore.api.utils
 
+import com.modzo.eventstore.api.events.add.AddEventRequest
 import org.springframework.stereotype.Component
 
 import static org.apache.commons.lang.RandomStringUtils.randomAlphanumeric
@@ -14,15 +15,15 @@ class DummyEvent {
         this.testContext = testContext
     }
 
-    static Map<String, String> sampleRequest() {
-        [
+    static AddEventRequest sampleRequest() {
+        new AddEventRequest(
                 uniqueId: randomAlphanumeric(100),
-                topic   : randomAlphanumeric(100),
-                value   : randomAscii(10000)
-        ]
+                type: randomAlphanumeric(100),
+                data: randomAscii(10000)
+        )
     }
 
-    void create(Map<String, String> request = sampleRequest()) {
+    void create(AddEventRequest request = sampleRequest()) {
         testContext.createEvent(request)
     }
 }

@@ -1,6 +1,6 @@
 package com.modzo.eventstore.api.utils
 
-import org.springframework.boot.test.context.TestComponent
+import com.modzo.eventstore.api.events.EventBean
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
@@ -28,10 +28,10 @@ class RequestTemplate {
         return restTemplate.postForEntity(url, entity, String)
     }
 
-    ResponseEntity<String> get(String url) {
+    ResponseEntity<EventBean> get(String url) {
         HttpHeaders headers = new HttpHeaders()
         headers.setContentType(MediaType.APPLICATION_JSON)
 
-        return restTemplate.getForEntity(url, String)
+        return restTemplate.getForEntity(url, EventBean)
     }
 }

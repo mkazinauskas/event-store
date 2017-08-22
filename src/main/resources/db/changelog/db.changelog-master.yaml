@@ -14,23 +14,18 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: unique_id
+                  name: uniqueId
                   type: varchar(100)
                   constraints:
                     nullable: false
                     unique: true
               - column:
-                  name: created
-                  type: timestamp
-                  constraints:
-                    nullable: false
-              - column:
-                  name: topic
+                  name: type
                   type: varchar(100)
                   constraints:
                     nullable: false
               - column:
-                  name: value
-                  type: LONGVARCHAR
+                  name: data
+                  type: CLOB
                   constraints:
                     nullable: false

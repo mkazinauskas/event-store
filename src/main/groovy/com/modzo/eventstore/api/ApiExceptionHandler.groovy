@@ -23,10 +23,4 @@ class ApiExceptionHandler {
     ResponseEntity<Error> handleDomainException(DomainException exception) {
         return status(HttpStatus.BAD_REQUEST).body(new Error(exception))
     }
-
-    @ExceptionHandler(Throwable)
-    @ResponseBody
-    ResponseEntity handleDefaultException(Throwable ignored) {
-        return status(HttpStatus.BAD_REQUEST).build()
-    }
 }

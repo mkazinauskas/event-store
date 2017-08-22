@@ -17,19 +17,19 @@ class AddEventValidator {
 
     void validate(AddEvent addEvent) {
         if (isBlank(addEvent.uniqueId)) {
-            throw new DomainException('EVENT_UNIQUE_ID', 'Event unique id cannot be blank')
+            throw new DomainException('EVENT_UNIQUE_ID_CANNOT_BE_BLANK', 'Event unique id cannot be blank')
         }
 
         if (events.findByUniqueId(addEvent.uniqueId).present) {
-            throw new DomainException('EVENT_UNIQUE_ID', 'Event unique id is already saved')
+            throw new DomainException('EVENT_UNIQUE_ID_EXISTS', 'Event unique id already exists')
         }
 
-        if (isBlank(addEvent.topic)) {
-            throw new DomainException('EVENT_TOPIC', 'Topic cannot be blank')
+        if (isBlank(addEvent.type)) {
+            throw new DomainException('EVENT_TOPIC_CANNOT_BE_BLANK', 'Type cannot be blank')
         }
 
-        if (isBlank(addEvent.value)) {
-            throw new DomainException('EVENT_VALUE', 'Value cannot be blank')
+        if (isBlank(addEvent.data)) {
+            throw new DomainException('EVENT_DATA_CANNOT_BE_BLANK', 'Data cannot be blank')
         }
     }
 }

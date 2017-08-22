@@ -2,8 +2,8 @@ package com.modzo.eventstore.api.events
 
 import com.modzo.eventstore.api.ApiSpec
 import com.modzo.eventstore.api.utils.DummyEvent
+import com.modzo.eventstore.domain.event.Event
 import com.modzo.eventstore.domain.event.Events
-import groovy.json.JsonSlurper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -16,55 +16,38 @@ class EventsControllerSpec extends ApiSpec {
     @Autowired
     private DummyEvent dummyEvent
 
-    def 'should list all events'() {
+    def 'should find next saved event when event id not provided'() {
         given:
-            def savedEvent = dummyEvent.sampleRequest()
-            dummyEvent.create(savedEvent)
+            dummyEvent.create()
+        and:
+            Event firstEvent = events.findOne(1L)
         when:
-            ResponseEntity<String> response = testContext.retrieveEvents()
+            ResponseEntity<EventBean> response = testContext.retrieveNextEvent(0)
         then:
             response.statusCode == HttpStatus.OK
 
-            def body = new JsonSlurper().parseText(response.body)
-            def retrievedEvent = body.content.find { it.uniqueId == savedEvent.uniqueId }
-
-            checkSavedEventWithRetrieved(savedEvent, retrievedEvent)
+            def retrievedEvent = response.body
+            retrievedEvent.uniqueId == firstEvent.uniqueId
+            retrievedEvent.type == firstEvent.type
+            retrievedEvent.data == firstEvent.data
     }
 
-    def 'should find event by unique id'() {
-        given:
-            def savedEvent = dummyEvent.sampleRequest()
-            dummyEvent.create(savedEvent)
-        when:
-            ResponseEntity<String> response = testContext.retrieveEvent(savedEvent.uniqueId)
-        then:
-            response.statusCode == HttpStatus.OK
-
-            def retrievedEvent = new JsonSlurper().parseText(response.body)
-            checkSavedEventWithRetrieved(savedEvent, retrievedEvent)
-    }
-
-    def 'should find next saved event'() {
+    def 'should find next saved event when event id provided'() {
         given:
             def firstEvent = dummyEvent.sampleRequest()
             dummyEvent.create(firstEvent)
+            long firstEventId = events.findByUniqueId(firstEvent.uniqueId).get().id
         and:
             def secondEvent = dummyEvent.sampleRequest()
             dummyEvent.create(secondEvent)
         when:
-            ResponseEntity<String> response = testContext.retrieveNextEvent(firstEvent.uniqueId)
+            ResponseEntity<EventBean> response = testContext.retrieveNextEvent(firstEventId)
         then:
             response.statusCode == HttpStatus.OK
+            def retrievedEvent = response.body
 
-            def retrievedEvent = new JsonSlurper().parseText(response.body)
-            checkSavedEventWithRetrieved(secondEvent, retrievedEvent)
+            retrievedEvent.uniqueId == secondEvent.uniqueId
+            retrievedEvent.type == secondEvent.type
+            retrievedEvent.data == secondEvent.data
     }
-
-    private static void checkSavedEventWithRetrieved(def savedEvent, retrievedEvent) {
-        assert retrievedEvent.uniqueId == savedEvent.uniqueId
-        assert retrievedEvent.created != null
-        assert retrievedEvent.topic == savedEvent.topic
-        assert retrievedEvent.value == savedEvent.value
-    }
-
 }
