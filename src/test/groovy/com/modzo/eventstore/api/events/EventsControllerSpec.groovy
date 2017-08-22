@@ -34,14 +34,13 @@ class EventsControllerSpec extends ApiSpec {
 
     def 'should find next saved event when event id provided'() {
         given:
-            def firstEvent = dummyEvent.sampleRequest()
-            dummyEvent.create(firstEvent)
-            long firstEventId = events.findByUniqueId(firstEvent.uniqueId).get().id
+            dummyEvent.create(dummyEvent.sampleRequest())
+            dummyEvent.create(dummyEvent.sampleRequest())
         and:
-            def secondEvent = dummyEvent.sampleRequest()
-            dummyEvent.create(secondEvent)
+            Event firstEvent = events.findOne(1L)
+            Event secondEvent = events.findOne(2L)
         when:
-            ResponseEntity<EventBean> response = testContext.retrieveNextEvent(firstEventId)
+            ResponseEntity<EventBean> response = testContext.retrieveNextEvent(firstEvent.id)
         then:
             response.statusCode == HttpStatus.OK
             def retrievedEvent = response.body

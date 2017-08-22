@@ -23,7 +23,7 @@ public class EventsController {
 
     @RequestMapping(method = RequestMethod.GET, value = "events/next")
     public ResponseEntity<EventBean> getNextEntry(@RequestParam("id") Long id) {
-        Event nextEvent = events.findNextEventByOrderById(id)
+        Event nextEvent = events.findTop1ByIdGreaterThanOrderByIdAsc(id)
                 .orElseThrow(
                         () -> new ApiException("EVENT_ID", "Next event entry does not exist", HttpStatus.NOT_FOUND)
                 );
