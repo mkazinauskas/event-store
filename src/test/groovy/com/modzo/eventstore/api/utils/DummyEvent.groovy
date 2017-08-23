@@ -3,8 +3,9 @@ package com.modzo.eventstore.api.utils
 import com.modzo.eventstore.api.events.add.AddEventRequest
 import org.springframework.stereotype.Component
 
-import static org.apache.commons.lang.RandomStringUtils.randomAlphanumeric
-import static org.apache.commons.lang.RandomStringUtils.randomAscii
+import static org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric
+import static org.apache.commons.lang3.RandomStringUtils.randomAscii
+
 
 @Component
 class DummyEvent {

@@ -8,7 +8,13 @@ It does not ensures aggregate root versioning and other cool stuff which [https:
  
 [![Build Status](https://travis-ci.org/modestukasai/event-store.svg?branch=master)](https://travis-ci.org/modestukasai/event-store)
 
-## Usage
+## How to run?
+
+1. `.gradlew buildDocker`
+2. `docker-compose up`
+3. Access application via [http://loclahost:8080](http://loclahost:8080)
+
+## Api usage
 
 * Add event POST `/events` 
 
@@ -23,4 +29,4 @@ Sample request
 
 * Retrieve first GET `/events/next`
 
-* Retrieve first GET `/events/next?id={currentEventId}` 
+* Retrieve next event GET `/events/next?id={currentEventId}` 

@@ -21,6 +21,10 @@ class TestContext {
         return requestTemplate.get("/events/next?id=${id}", clazz)
     }
 
+    def <T>ResponseEntity<T> retrieveFirstEvent(Class<T> clazz) {
+        return requestTemplate.get('/events/next', clazz)
+    }
+
     private static Map asMap(AddEventRequest request) {
         request.class.declaredFields
                 .findAll { !it.synthetic }

@@ -4,7 +4,8 @@ import com.modzo.eventstore.domain.DomainException
 import com.modzo.eventstore.domain.event.Events
 import org.springframework.stereotype.Component
 
-import static org.apache.commons.lang.StringUtils.isBlank
+import static org.apache.commons.lang3.StringUtils.isBlank
+
 
 @Component
 class AddEventValidator {

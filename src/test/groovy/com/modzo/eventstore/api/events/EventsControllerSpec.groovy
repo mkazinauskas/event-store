@@ -23,7 +23,7 @@ class EventsControllerSpec extends ApiSpec {
         and:
             Event firstEvent = events.findOne(1L)
         when:
-            ResponseEntity<EventBean> response = testContext.retrieveNextEvent(0, EventBean)
+            ResponseEntity<EventBean> response = testContext.retrieveFirstEvent(EventBean)
         then:
             response.statusCode == HttpStatus.OK
 
