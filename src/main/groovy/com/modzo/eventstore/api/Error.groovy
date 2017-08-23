@@ -6,9 +6,7 @@ class Error {
     final String id
     final String message
 
-    Error(String id, String message) {
-        this.id = id
-        this.message = message
+    Error(){
     }
 
     Error(DomainException domainException) {

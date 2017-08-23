@@ -24,6 +24,6 @@ class DummyEvent {
     }
 
     void create(AddEventRequest request = sampleRequest()) {
-        testContext.createEvent(request)
+        testContext.createEvent(request, String)
     }
 }

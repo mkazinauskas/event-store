@@ -1,6 +1,7 @@
 package com.modzo.eventstore.api.events
 
 import com.modzo.eventstore.api.ApiSpec
+import com.modzo.eventstore.api.Error
 import com.modzo.eventstore.api.utils.DummyEvent
 import com.modzo.eventstore.domain.event.Event
 import com.modzo.eventstore.domain.event.Events
@@ -16,13 +17,13 @@ class EventsControllerSpec extends ApiSpec {
     @Autowired
     private DummyEvent dummyEvent
 
-    def 'should find next saved event when event id not provided'() {
+    def 'should find first event if no id provided'() {
         given:
             dummyEvent.create()
         and:
             Event firstEvent = events.findOne(1L)
         when:
-            ResponseEntity<EventBean> response = testContext.retrieveNextEvent(0)
+            ResponseEntity<EventBean> response = testContext.retrieveNextEvent(0, EventBean)
         then:
             response.statusCode == HttpStatus.OK
 
@@ -32,7 +33,7 @@ class EventsControllerSpec extends ApiSpec {
             retrievedEvent.data == firstEvent.data
     }
 
-    def 'should find next saved event when event id provided'() {
+    def 'should find next event when previous id provided'() {
         given:
             dummyEvent.create(dummyEvent.sampleRequest())
             dummyEvent.create(dummyEvent.sampleRequest())
@@ -40,7 +41,7 @@ class EventsControllerSpec extends ApiSpec {
             Event firstEvent = events.findOne(1L)
             Event secondEvent = events.findOne(2L)
         when:
-            ResponseEntity<EventBean> response = testContext.retrieveNextEvent(firstEvent.id)
+            ResponseEntity<EventBean> response = testContext.retrieveNextEvent(firstEvent.id, EventBean)
         then:
             response.statusCode == HttpStatus.OK
             def retrievedEvent = response.body
@@ -48,5 +49,16 @@ class EventsControllerSpec extends ApiSpec {
             retrievedEvent.uniqueId == secondEvent.uniqueId
             retrievedEvent.type == secondEvent.type
             retrievedEvent.data == secondEvent.data
+    }
+
+    def 'should throw error when newer event does not exists'() {
+        given:
+            long lastEventId = events.count()
+        when:
+            ResponseEntity<Error> response = testContext.retrieveNextEvent(lastEventId, Error)
+        then:
+            response.statusCode == HttpStatus.NOT_FOUND
+            response.body.id == 'EVENT_ID'
+            response.body.message == 'Next event entry does not exist'
     }
 }

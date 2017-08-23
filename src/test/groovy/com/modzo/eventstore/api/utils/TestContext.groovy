@@ -1,6 +1,5 @@
 package com.modzo.eventstore.api.utils
 
-import com.modzo.eventstore.api.events.EventBean
 import com.modzo.eventstore.api.events.add.AddEventRequest
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Component
@@ -14,12 +13,12 @@ class TestContext {
         this.requestTemplate = requestTemplate
     }
 
-    ResponseEntity<String> createEvent(AddEventRequest request) {
-        return requestTemplate.post('/events', asMap(request))
+    def <T> ResponseEntity<T> createEvent(AddEventRequest request, Class<T> clazz) {
+        return requestTemplate.post('/events', asMap(request), clazz)
     }
 
-    ResponseEntity<EventBean> retrieveNextEvent(long id) {
-        return requestTemplate.get("/events/next?id=${id}")
+    def <T>ResponseEntity<T> retrieveNextEvent(long id, Class<T> clazz) {
+        return requestTemplate.get("/events/next?id=${id}", clazz)
     }
 
     private static Map asMap(AddEventRequest request) {

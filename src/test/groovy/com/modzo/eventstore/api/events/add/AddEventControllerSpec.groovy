@@ -1,6 +1,7 @@
 package com.modzo.eventstore.api.events.add
 
 import com.modzo.eventstore.api.ApiSpec
+import com.modzo.eventstore.api.Error
 import com.modzo.eventstore.api.utils.DummyEvent
 import com.modzo.eventstore.domain.event.Event
 import com.modzo.eventstore.domain.event.Events
@@ -21,7 +22,7 @@ class AddEventControllerSpec extends ApiSpec {
         given:
             def request = dummyEvent.sampleRequest()
         when:
-            ResponseEntity<String> response = testContext.createEvent(request)
+            ResponseEntity<String> response = testContext.createEvent(request, String)
         then:
             response.statusCode == HttpStatus.CREATED
             response.body == null
@@ -35,16 +36,16 @@ class AddEventControllerSpec extends ApiSpec {
             event.data == request.data
     }
 
-    def 'should fail to add new event'() {
+    def 'should fail to add new event with validation error'() {
         given:
             def request = dummyEvent.sampleRequest()
             request.uniqueId = null
         when:
-            ResponseEntity<String> response = testContext.createEvent(request)
+            ResponseEntity<String> response = testContext.createEvent(request, String)
         then:
             response.statusCode == HttpStatus.BAD_REQUEST
+        and:
             def body = new JsonSlurper().parseText(response.body)
-
             body.errors.size() == 1
             with(body.errors.first()) { error ->
                 error.field == 'uniqueId'
@@ -54,4 +55,16 @@ class AddEventControllerSpec extends ApiSpec {
             }
     }
 
+    def 'should fail to add new event'() {
+        given:
+            def request = dummyEvent.sampleRequest()
+            dummyEvent.create(request)
+        when:
+            ResponseEntity<Error> response = testContext.createEvent(request, Error)
+        then:
+            response.statusCode == HttpStatus.BAD_REQUEST
+        and:
+            response.body.id == 'EVENT_UNIQUE_ID_EXISTS'
+            response.body.message == 'Event unique id already exists'
+    }
 }
