@@ -11,8 +11,9 @@ It does not ensures aggregate root versioning and other cool stuff which [https:
 ## How to run?
 
 1. `.gradlew buildDocker`
-2. `docker-compose up`
-3. Access application via [http://loclahost:8080](http://loclahost:8080)
+2. `docker-compose build`
+3. `docker-compose up`
+4. Access application via [http://loclahost:8080](http://loclahost:8080)
 
 ## Api usage
 
