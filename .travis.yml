@@ -1,3 +1,8 @@
+sudo: required
+
+services:
+  - docker
+
 language: java
 
 jdk:
@@ -12,4 +17,4 @@ cache:
 
 install: echo "skip 'gradle assemble' step"
 
-build: ./gradlew clean build --continue
+build: ./gradlew clean build buildDocker
