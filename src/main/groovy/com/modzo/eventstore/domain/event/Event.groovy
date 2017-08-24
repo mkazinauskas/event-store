@@ -10,7 +10,7 @@ import javax.persistence.*
 @Table(name = 'events')
 class Event {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = 'id', nullable = false)
     Long id
 
