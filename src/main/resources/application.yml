@@ -2,9 +2,9 @@ spring:
   application:
     name: event-store
   profiles:
-    active: ${POSTGRES_USER}
+    active: prod
   datasource:
-    url: jdbc:postgresql://${POSTGRES_PORT_5432_TCP_ADDR}:${POSTGRES_PORT_5432_TCP_PORT}/${POSTGRES_DB}
+    url: jdbc:postgresql://${POSTGRES_PORT_ADDR}:${POSTGRES_PORT_PORT}/${POSTGRES_DB}
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
