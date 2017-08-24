@@ -14,7 +14,7 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: uniqueId
+                  name: unique_id
                   type: varchar(100)
                   constraints:
                     nullable: false
