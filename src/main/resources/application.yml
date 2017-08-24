@@ -1,18 +1,13 @@
 spring:
-  profiles:
-    active: prod
   application:
     name: event-store
-  cloud:
-    config:
-      enabled: false
-      discovery:
-        enabled: false
+  profiles:
+    active: ${POSTGRES_USER}
   datasource:
     url: jdbc:postgresql://${POSTGRES_PORT_5432_TCP_ADDR}:${POSTGRES_PORT_5432_TCP_PORT}/${POSTGRES_DB}
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: validate
-    database-platform: org.hibernate.dialect.PostgreSQLDialect

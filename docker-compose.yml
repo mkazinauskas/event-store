@@ -1,22 +1,22 @@
-db:
-  image: postgres
-  environment:
-    POSTGRES_DB: event-store
-    POSTGRES_USER: dbuser
-    POSTGRES_PASSWORD: dbpassword
-  ports:
-    - "5432:5432"
-  volumes:
-    - /data/backofficevivusge:/var/lib/postgresql/data
-
-event_store:
-  build: build/docker
-  links:
-    - "db:db"
-  environment:
-    APP_ENV: docker
-
-  command: ""
-
-  ports:
-    - "8048:8048"
+version: '2'
+services:
+  db:
+    container_name: event-store-postgres-db
+    image: postgres
+    environment:
+      POSTGRES_DB: event-store
+      POSTGRES_USER: dbuser
+      POSTGRES_PASSWORD: dbpassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - /data/backofficevivusge:/var/lib/postgresql/data
+  event-store:
+    container_name: event-store
+    build: build/docker
+    links:
+      - "db:event-store-postgres-db"
+    environment:
+      APP_ENV: docker
+    ports:
+      - "8048:8048"
