@@ -22,9 +22,9 @@ It does not ensures aggregate root versioning and other cool stuff which [https:
 Sample request
 ```
 {
-   uniqueId: 'uniqueId'
-   type   : 'my_event_type'
-   data   : 'any Value'
+   "uniqueId": "uniqueId",
+   "type"   : "my_event_type",
+   "data"   : "any Value"
 }
 ```
 
