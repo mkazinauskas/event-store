@@ -29,3 +29,10 @@ databaseChangeLog:
                   type: CLOB
                   constraints:
                     nullable: false
+  - changeSet:
+      id: 2
+      author: modzo
+      changes:
+        - createSequence:
+            sequenceName: hibernate_sequence
+            startValue: 1

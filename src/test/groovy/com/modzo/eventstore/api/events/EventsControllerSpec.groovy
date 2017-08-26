@@ -21,7 +21,7 @@ class EventsControllerSpec extends ApiSpec {
         given:
             dummyEvent.create()
         and:
-            Event firstEvent = events.findOne(1L)
+            Event firstEvent = events.findTop10ByOrderByIdAsc().first()
         when:
             ResponseEntity<EventBean> response = testContext.retrieveFirstEvent(EventBean)
         then:
@@ -38,8 +38,9 @@ class EventsControllerSpec extends ApiSpec {
             dummyEvent.create(dummyEvent.sampleRequest())
             dummyEvent.create(dummyEvent.sampleRequest())
         and:
-            Event firstEvent = events.findOne(1L)
-            Event secondEvent = events.findOne(2L)
+            Collection<Event> first10Events = events.findTop10ByOrderByIdAsc()
+            Event firstEvent = first10Events.first()
+            Event secondEvent = first10Events[1]
         when:
             ResponseEntity<EventBean> response = testContext.retrieveNextEvent(firstEvent.id, EventBean)
         then:
@@ -53,7 +54,7 @@ class EventsControllerSpec extends ApiSpec {
 
     def 'should throw error when newer event does not exists'() {
         given:
-            long lastEventId = events.count()
+            long lastEventId = events.findTop10ByOrderByIdDesc().first().id
         when:
             ResponseEntity<Error> response = testContext.retrieveNextEvent(lastEventId, Error)
         then:

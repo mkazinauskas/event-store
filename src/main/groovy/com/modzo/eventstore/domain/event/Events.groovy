@@ -7,4 +7,8 @@ interface Events extends PagingAndSortingRepository<Event, Long> {
     Optional<Event> findByUniqueId(String uniqueId)
 
     Optional<Event> findTop1ByIdGreaterThanOrderByIdAsc(Long id)
+
+    Collection<Event> findTop10ByOrderByIdAsc()
+
+    Collection<Event> findTop10ByOrderByIdDesc()
 }
