@@ -28,6 +28,7 @@ class EventsControllerSpec extends ApiSpec {
             response.statusCode == HttpStatus.OK
 
             def retrievedEvent = response.body
+            retrievedEvent.id == firstEvent.id
             retrievedEvent.uniqueId == firstEvent.uniqueId
             retrievedEvent.type == firstEvent.type
             retrievedEvent.data == firstEvent.data
@@ -46,7 +47,7 @@ class EventsControllerSpec extends ApiSpec {
         then:
             response.statusCode == HttpStatus.OK
             def retrievedEvent = response.body
-
+            retrievedEvent.id == firstEvent.id + 1
             retrievedEvent.uniqueId == secondEvent.uniqueId
             retrievedEvent.type == secondEvent.type
             retrievedEvent.data == secondEvent.data
