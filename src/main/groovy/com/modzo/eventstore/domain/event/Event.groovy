@@ -5,12 +5,14 @@ import org.hibernate.validator.constraints.NotBlank
 
 import javax.persistence.*
 
+import static javax.persistence.GenerationType.IDENTITY
+
 @CompileStatic
 @Entity
 @Table(name = 'events')
 class Event {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = IDENTITY)
     @Column(name = 'id', nullable = false)
     Long id
 
