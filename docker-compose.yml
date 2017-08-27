@@ -24,4 +24,4 @@ services:
       - POSTGRES_PORT_ADDR=${POSTGRES_PORT_ADDR}
       - POSTGRES_PORT_PORT=${POSTGRES_PORT_PORT}
     ports:
-      - 8080:8080
+      - 8889:8080
