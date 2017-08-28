@@ -29,3 +29,12 @@ databaseChangeLog:
                   type: CLOB
                   constraints:
                     nullable: false
+  - changeSet:
+      id: 2
+      author: modzo
+      changes:
+        - createSequence:
+            sequenceName: events_sequence
+            schemaName: public
+            incrementBy: 1
+            startValue: 1
