@@ -28,9 +28,6 @@ class RequestTemplate {
     }
 
     def <T> ResponseEntity<T> get(String url, Class<T> clazz) {
-        HttpHeaders headers = new HttpHeaders()
-        headers.setContentType(MediaType.APPLICATION_JSON)
-
         return restTemplate.getForEntity(url, clazz)
     }
 }
