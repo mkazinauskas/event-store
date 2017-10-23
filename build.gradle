@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '1.5.7.RELEASE'
+        springBootVersion = '1.5.8.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -27,7 +27,7 @@ repositories {
 }
 
 ext {
-    springCloudVersion = 'Dalston.SR1'
+    springCloudVersion = 'Dalston.SR4'
     spockVersion = '1.1-groovy-2.4'
 }
 
