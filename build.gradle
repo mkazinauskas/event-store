@@ -26,6 +26,10 @@ repositories {
     mavenCentral()
 }
 
+springBoot {
+    executable = true
+}
+
 ext {
     springCloudVersion = 'Dalston.SR4'
     spockVersion = '1.1-groovy-2.4'
