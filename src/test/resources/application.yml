@@ -4,3 +4,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
+eureka:
+  client:
+    enabled: false
