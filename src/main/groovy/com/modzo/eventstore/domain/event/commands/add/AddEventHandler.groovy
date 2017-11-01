@@ -8,12 +8,14 @@ import org.springframework.transaction.annotation.Transactional
 
 @Component
 class AddEventHandler {
+    private final Events events
+    private final AddEventValidator validator
 
     @Autowired
-    private Events events
-
-    @Autowired
-    private AddEventValidator validator
+    AddEventHandler(Events events, AddEventValidator validator) {
+        this.events = events
+        this.validator = validator
+    }
 
     @Transactional
     void handle(AddEvent addEvent) {
