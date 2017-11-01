@@ -15,8 +15,12 @@ import static java.lang.String.format;
 @RestController
 public class AddEventController {
 
+    private final AddEventHandler addEventHandler;
+
     @Autowired
-    private AddEventHandler addEventHandler;
+    public AddEventController(AddEventHandler addEventHandler) {
+        this.addEventHandler = addEventHandler;
+    }
 
     @PostMapping(value = "events")
     public ResponseEntity addEvent(@RequestBody @Valid AddEventRequest addEventRequest) {
