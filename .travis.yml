@@ -15,11 +15,6 @@ cache:
   directories:
   - $HOME/.gradle
 
-before_script: 
-  - docker-compose up --build -d
-
 script:
-  - curl http://0.0.0.0:8080/events/next
-
-after_script:
+  - docker-compose up --build -d
   - docker-compose down
