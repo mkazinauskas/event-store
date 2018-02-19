@@ -19,7 +19,7 @@ before_script:
   - docker-compose up --build -d
 
 script:
-  - curl http://localhost:8080/events/next
+  - curl http://0.0.0.0:8080/events/next
 
 after_script:
   - docker-compose down
