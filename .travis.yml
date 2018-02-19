@@ -16,7 +16,10 @@ cache:
   - $HOME/.gradle
 
 before_script:
- - ls
+ - echo "Skipping before script"
+
+install:
+ - echo "Skipping install step"
 
 script:
  - ./gradlew check
