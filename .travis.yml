@@ -14,12 +14,10 @@ os:
 cache:
   directories:
   - $HOME/.gradle
-
-before_script: 
- - docker-compose up --build -d
   		  
 script:
  - ./gradlew check
+ - docker-compose up --build -d
  - ./test.sh
 
 after_script:
