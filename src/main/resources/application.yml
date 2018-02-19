@@ -4,7 +4,7 @@ spring:
   application:
     name: event-store
   datasource:
-    url: jdbc:postgresql://${POSTGRES_PORT_ADDR}:${POSTGRES_PORT_PORT}/${POSTGRES_DB}
+    url: jdbc:postgresql://${POSTGRES_ADDR}:${POSTGRES_PORT}/${POSTGRES_DB}
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver

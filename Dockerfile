@@ -1,5 +1,5 @@
 FROM openjdk:8-jdk-alpine
-VOLUME /tmp
+VOLUME $HOME/.gradle /root/.gradle
 ADD . /build 
 RUN 	mkdir /app && \
 	cd /build && \
