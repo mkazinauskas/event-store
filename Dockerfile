@@ -1,5 +1,11 @@
 FROM openjdk:8-jdk-alpine
 VOLUME /tmp
-ADD build/libs/event-store-*.jar event-store.jar
-ADD src/main/resources/application.yml application.yml
-ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /event-store.jar --spring.profiles.active=container" ]
+ADD . /build 
+RUN 	mkdir /app && \
+	cd /build && \
+	cp src/main/resources/application.yml /app/application.yml && \
+	./gradlew build --parallel && \
+	cp /build/build/libs/event-store-*.jar /app/event-store.jar && \
+	rm -rf /build
+WORKDIR /app
+ENTRYPOINT [ "sh", "-c", "java -jar event-store.jar" ]
