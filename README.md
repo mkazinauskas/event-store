@@ -10,8 +10,9 @@ It does not ensures aggregate root versioning and other cool stuff which [https:
 
 ## How to run?
 
-1. `docker-compose up --build`
-2. Access application via [http://localhost:8080](http://localhost:8080)
+1. `./gradlew build`
+2. `docker-compose up --build`
+3. Access application via [http://localhost:8080](http://localhost:8080)
 
 ## Api usage
 
