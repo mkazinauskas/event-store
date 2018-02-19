@@ -13,8 +13,7 @@ services:
       - /data/event_store_db:/var/lib/postgresql/data
 
   event-store:
-    container_name: event-store
-    build: build/docker
+    build: .
     depends_on:
       - db
     environment:
@@ -24,4 +23,4 @@ services:
       - POSTGRES_PORT_ADDR=${POSTGRES_PORT_ADDR}
       - POSTGRES_PORT_PORT=${POSTGRES_PORT_PORT}
     ports:
-      - 8889:8080
+      - 8080:8080
