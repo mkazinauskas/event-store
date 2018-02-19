@@ -15,6 +15,11 @@ cache:
   directories:
   - $HOME/.gradle
 
-install: echo "skip 'gradle assemble' step"
+before_script: 
+  - docker-compose up --build -d
 
-build: ./gradlew clean build buildDocker
+script:
+  - curl http://localhost:8080/events/next
+
+after_script:
+  - docker-compose down
