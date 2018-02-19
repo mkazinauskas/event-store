@@ -22,7 +22,7 @@ install:
  - echo "Skipping install step"
 
 script:
- - ./gradlew check
+ - ./gradlew build
  - docker-compose up --build -d
  - ./test.sh
 
