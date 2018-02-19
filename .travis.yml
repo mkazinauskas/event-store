@@ -14,7 +14,10 @@ os:
 cache:
   directories:
   - $HOME/.gradle
-  		  
+
+before_script:
+ - ls
+
 script:
  - ./gradlew check
  - docker-compose up --build -d
